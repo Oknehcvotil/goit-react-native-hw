@@ -25,6 +25,10 @@ const RegistrationScreen = () => {
   const [focusPassword, setFocusPassword] = useState(false);
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const [phoneWidth, setPhoneWidth] = useState(Dimensions.get("window").width);
   const [phoneHeight, setPhoneHeight] = useState(
     Dimensions.get("window").height
@@ -44,6 +48,30 @@ const RegistrationScreen = () => {
   }, []);
 
   const keyboardIsHidden = () => {
+    Keyboard.dismiss();
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  };
+
+  const onLogin = () => {
+    if (!login.trim() || !email.trim() || !password.trim()) {
+      Alert.alert(`All fields must be filled in!`);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      Alert.alert(`Invalid email address!`);
+      return;
+    }
+
+    Alert.alert(`${login}, successfully registered!`);
+    console.log(`login: ${login}, email: ${email}, password: ${password}`);
+    setLogin("");
+    setEmail("");
+    setPassword("");
     Keyboard.dismiss();
   };
 
@@ -90,6 +118,8 @@ const RegistrationScreen = () => {
                     placeholder="Логін"
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
+                    value={login}
+                    onChangeText={setLogin}
                   ></TextInput>
                   <TextInput
                     style={{
@@ -102,6 +132,8 @@ const RegistrationScreen = () => {
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
                     keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
                   ></TextInput>
                   <TextInput
                     style={{
@@ -114,6 +146,8 @@ const RegistrationScreen = () => {
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
                     secureTextEntry={isPasswordHidden}
+                    value={password}
+                    onChangeText={setPassword}
                   ></TextInput>
                   <TouchableOpacity
                     style={styles.isPassword}
@@ -125,7 +159,7 @@ const RegistrationScreen = () => {
                       {isPasswordHidden ? "Показати" : "Приховати"}
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity style={styles.button} onPress={onLogin}>
                     <Text style={styles.buttonText}>Зареєстуватися</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
