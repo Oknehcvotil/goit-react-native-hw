@@ -1,7 +1,15 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./src/screens/LoginScreen";
 import RegistrationScreen from "./src/screens/RegistrationScreen";
+import CommentsScreen from "./src/screens/CommentsScreen";
+import CreatePostsScreen from "./src/screens/CreatePostsScreen";
+import Home from "./src/screens/Home";
+import MapScreen from "./src/screens/MapScreen";
+import PostsScreen from "./src/screens/PostsScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
+
 import { useFonts } from "expo-font";
 
 export default function App() {
@@ -15,24 +23,20 @@ export default function App() {
     return null;
   }
 
-  return (
-    <>
-      <LoginScreen/>
-    </>
-  );
-  // return (
-  //   <View style={styles.container}>
-  //     <Text>jhgjvhb!</Text>
-  //     <StatusBar style="auto" />
-  //   </View>
-  // );
-}
+  const Stack = createStackNavigator();
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="CreatePosts" component={CreatePostsScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
