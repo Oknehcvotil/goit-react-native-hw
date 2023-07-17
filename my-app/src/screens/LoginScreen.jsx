@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   TextInput,
@@ -24,6 +25,8 @@ const LoginScreen = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+   const navigation = useNavigation();
 
   const [phoneWidth, setPhoneWidth] = useState(Dimensions.get("window").width);
   const [phoneHeight, setPhoneHeight] = useState(
@@ -64,9 +67,12 @@ const LoginScreen = () => {
 
     Alert.alert(`Welcom back!`);
     console.log(`email: ${email}, password: ${password}`);
+
     setEmail("");
     setPassword("");
     Keyboard.dismiss();
+
+    navigation.navigate("Home");
   };
 
   return (
@@ -138,7 +144,10 @@ const LoginScreen = () => {
                   <TouchableOpacity>
                     <Text style={styles.bottomLink}>
                       Немає акаунту?
-                      <Text style={styles.bottomLinkRegister}>
+                      <Text
+                        style={styles.bottomLinkRegister}
+                        onPress={() => navigation.navigate("Registration")}
+                      >
                         Зареєстуватися
                       </Text>
                     </Text>

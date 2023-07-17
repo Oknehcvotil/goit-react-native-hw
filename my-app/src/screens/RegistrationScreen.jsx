@@ -30,6 +30,8 @@ const RegistrationScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigation = useNavigation();
+
   const [phoneWidth, setPhoneWidth] = useState(Dimensions.get("window").width);
   const [phoneHeight, setPhoneHeight] = useState(
     Dimensions.get("window").height
@@ -70,10 +72,13 @@ const RegistrationScreen = () => {
 
     Alert.alert(`${login}, successfully registered!`);
     console.log(`login: ${login}, email: ${email}, password: ${password}`);
+    
     setLogin("");
     setEmail("");
     setPassword("");
     Keyboard.dismiss();
+
+    navigation.navigate("Home");
   };
 
   return (
@@ -164,7 +169,12 @@ const RegistrationScreen = () => {
                     <Text style={styles.buttonText}>Зареєстуватися</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Text style={styles.bottomLink}>Вже є акаунт? Увійти</Text>
+                    <Text
+                      style={styles.bottomLink}
+                      onPress={() => navigation.navigate("Login")}
+                    >
+                      Вже є акаунт? Увійти
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
