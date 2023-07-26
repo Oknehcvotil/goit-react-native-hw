@@ -49,6 +49,7 @@ const Home = () => {
         name="CreatePosts"
         component={CreatePostsScreen}
         options={{
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ focused, size, color }) => (
             <View
               style={{
@@ -74,6 +75,9 @@ const Home = () => {
               <AntDesign name="arrowleft" size={24} color={color} />
             </TouchableOpacity>
           ),
+          headerLeftContainerStyle: { paddingLeft: 10 },
+          headerTitleAlign: "center",
+          headerTitleStyle: { paddingBottom: 5 },
           title: "Створити публікацію",
         }}
       />
