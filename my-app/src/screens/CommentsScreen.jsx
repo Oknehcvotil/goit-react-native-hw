@@ -61,7 +61,7 @@ const CommentsScreen = () => {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    await SplashScreen.hideAsync(); // Приховування SplashScreen
+    await SplashScreen.hideAsync();
   }, []);
 
   return (

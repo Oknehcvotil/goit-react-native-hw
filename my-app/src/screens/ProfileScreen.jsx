@@ -15,22 +15,22 @@ import { Feather, AntDesign } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 
-import Bg from "../images/background.png";
-import avatar from "../images/avatarBig.jpg"; 
+import bg from "../images/background.png";
+import avatar from "../images/avatarBig.jpg";
 
-import { profilePostArray } from "../data/posts"; // Імпорт масиву profilePostArray з файлу data/posts
+import { dataPosts } from "../data/posts";
 
 const ProfileScreen = () => {
-  const navigation = useNavigation(); // Навігація між екранами
+  const navigation = useNavigation();
 
   const [windowWidth, setWindowWidth] = useState(
     Dimensions.get("window").width
-  ); // Стан для збереження ширини вікна
+  );
   const [windowHeight, setWindowHeight] = useState(
     Dimensions.get("window").height
-  ); // Стан для збереження висоти вікна
+  );
 
-  const [posts, setPosts] = useState(profilePostArray); // Стан для збереження постів
+  const [posts, setPosts] = useState(dataPosts);
 
   useEffect(() => {
     const onChange = () => {
@@ -39,25 +39,25 @@ const ProfileScreen = () => {
       const height = Dimensions.get("window").height;
       setWindowHeight(height);
     };
-    const dimensionsHandler = Dimensions.addEventListener("change", onChange); // Додавання слухача на зміни розміру вікна
+    const dimensionsHandler = Dimensions.addEventListener("change", onChange);
 
-    return () => dimensionsHandler.remove(); // Видалення слухача при виході з компонента
+    return () => dimensionsHandler.remove();
   }, []);
 
   useEffect(() => {
     async function prepare() {
-      await SplashScreen.preventAutoHideAsync(); // Попереднє запобігання автоматичного приховування SplashScreen
+      await SplashScreen.preventAutoHideAsync();
     }
     prepare();
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    await SplashScreen.hideAsync(); // Приховування SplashScreen
+    await SplashScreen.hideAsync();
   }, []);
 
   return (
     <View onLayout={onLayoutRootView} style={styles.container}>
-      <ImageBackground style={styles.bgImage} source={Bg}>
+      <ImageBackground style={styles.bgImage} source={bg}>
         <FlatList
           ListHeaderComponent={
             <View
@@ -114,7 +114,7 @@ const ProfileScreen = () => {
                 <View style={styles.row}>
                   <TouchableOpacity
                     style={styles.statisticWrap}
-                    onPress={() => navigation.navigate("Коментарі")}
+                    onPress={() => navigation.navigate("Comments")}
                   >
                     <Feather name="message-circle" size={24} color="#FF6C00" />
                     {/* <Message /> */}

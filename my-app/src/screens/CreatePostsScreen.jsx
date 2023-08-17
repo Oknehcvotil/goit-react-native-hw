@@ -73,15 +73,16 @@ const CreatePostsScreen = () => {
   };
 
   const handleSubmit = () => {
-    const data = {
-      img: postPhoto,
-      description: photoName,
+    const newPost = {
+      id: dataPosts.length + 1,
+      img: postPhoto, // Используйте require() для получения числового идентификатора изображения
+      title: photoName,
+      location: photoLocationName,
       comments: [],
       likes: 0,
-      locationName: photoLocationName,
-      geoLocation: currentGeoLocation,
     };
-    dataPosts.unshift(data);
+    console.log(newPost)
+    dataPosts.unshift(newPost);
     clearData();
     navigation.navigate("Posts");
   };
